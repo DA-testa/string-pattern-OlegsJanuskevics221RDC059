@@ -58,11 +58,11 @@ if __name__ == '__main__':
         text = input("Enter the text: ").rstrip()
     else:
         try:
-            with open("test.txt", "r") as f:
+            with open("tests.txt", "r") as f:
                 pattern = f.readline().rstrip()
                 text = f.readline().rstrip()
         except FileNotFoundError:
-            print("The file 'test.txt' was not found.")
+            print("The file 'tests.txt' was not found.")
             sys.exit()
 
     print_occurrences(rabin_karp(pattern, text))
