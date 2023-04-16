@@ -37,8 +37,8 @@ def get_occurrences(pattern, text):
         if p_hash == t_hash:
             if pattern == text[i:i+p_len]:
                 positions.append(i)
-                if i < t_len - p_len:
-                    t_hash = (t_hash - ord(text[i]) * pow(10,p_len-1)) *10 +ord(text[i+p_len])
+        if i < t_len - p_len:
+            t_hash = (t_hash - ord(text[i]) * pow(10,p_len-1)) *10 +ord(text[i+p_len])
     # and return an iterable variable
     return positions
 
