@@ -47,6 +47,11 @@ if __name__ == '__main__':
             sys.exit()
     elif "I" in text_type:
         pattern, text = read_input()
+        try:
+    filename = input().strip()
+    except EOFError:
+        print("No input provided.")
+        sys.exit()
     
     occurrences = get_occurrences(pattern, text)
     print_occurrences(occurrences)
