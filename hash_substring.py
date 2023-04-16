@@ -36,7 +36,7 @@ def get_occurrences(pattern, text):
 
     return positions
 
-if __name__ == '_main_':
+if __name__ == '__main__':
     text_type = "I"  # or "F", depending on the input method you want to use
     if "F" in text_type:
         filename = "06"
