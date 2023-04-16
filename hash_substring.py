@@ -1,5 +1,7 @@
 # python3
 
+# python3
+
 def read_input():
     pattern = input().rstrip()
     text = input().rstrip()
@@ -34,9 +36,10 @@ def get_occurrences(pattern, text):
         if i < t_len - p_len:
             t_hash = (t_hash - ord(text[i]) * pow(10, p_len-1)) * 10 + ord(text[i+p_len])
 
-    return positions
+    return positions if positions else []
 
 if __name__ == '__main__':
     pattern, text = read_input()
     occurrences = get_occurrences(pattern, text)
     print_occurrences(occurrences)
+
