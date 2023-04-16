@@ -20,7 +20,7 @@ def get_occurrences(pattern, text):
 
     # Calculate the hash of the initial substring of length p_len in the text
     t_hash = 0
-    for i in range(t_len):
+    for i in range(p_len):
         t_hash += ord(text[i]) * pow(10, p_len-i-1)
 
     for i in range(t_len - p_len + 1):
