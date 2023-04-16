@@ -38,7 +38,7 @@ def get_occurrences(pattern, text):
 
     return positions
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     text_type = input("Enter I or F: ").upper()  # Modified to take input directly
     if "F" in text_type:
         filename = "06"
