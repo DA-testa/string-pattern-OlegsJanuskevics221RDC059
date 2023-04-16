@@ -27,7 +27,7 @@ def get_occurrences(pattern, text):
     t_len = len(text)
 
     p_hash = 0
-    for in range(p_len):
+    for i in range(p_len):
         p_hash = p_hash + ord(pattern[i]) * pow(10,p_len-i-1)
 
     t_hash = 0
