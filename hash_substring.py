@@ -42,15 +42,12 @@ if __name__ == '__main__':
             with open(file_path) as f:
                 pattern = f.readline().rstrip()
                 text = f.readline().rstrip()
-        except Exception as e:
-            print("Error:", str(e))
+        except EOFError:
+            print("No input provided")
             sys.exit()
     elif "I" in text_type:
         pattern, text = read_input()
-        try:
-    except EOFError:
-        print("No input provided.")
-        sys.exit()
+
     
     occurrences = get_occurrences(pattern, text)
     print_occurrences(occurrences)
