@@ -1,6 +1,7 @@
 # python3
 
 import random
+import sys
 
 MAX_TEXT_LEN = 5 * (10 ** 5)
 MAX_PATTERN_LEN = MAX_TEXT_LEN
@@ -51,12 +52,21 @@ def get_occurrences(pattern, text):
     ]
 
 if __name__ == '__main__':
-    def read_input():
-        return (input().rstrip(), input().rstrip())
+    choice = input("Enter I for input from keyboard or F to read from a file: ")
+    if choice.lower() == 'i':
+        pattern = input("Enter the pattern: ").rstrip()
+        text = input("Enter the text: ").rstrip()
+    else:
+        try:
+            with open("test.txt", "r") as f:
+                pattern = f.readline().rstrip()
+                text = f.readline().rstrip()
+        except FileNotFoundError:
+            print("The file 'test.txt' was not found.")
+            sys.exit()
+
+    print_occurrences(rabin_karp(pattern, text))
 
 
-    def print_occurrences(output):
-        print(' '.join(map(str, output)))
-
-    print_occurrences(rabin_karp(*read_input()))
-
+def print_occurrences(output):
+    print(' '.join(map(str, output)))
