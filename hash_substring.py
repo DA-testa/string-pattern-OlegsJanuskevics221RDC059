@@ -1,45 +1,62 @@
 # python3
 
-# python3
+import random
 
-def read_input():
-    pattern = input().rstrip()
-    text = input().rstrip()
-    return pattern, text
+MAX_TEXT_LEN = 5 * (10 ** 5)
+MAX_PATTERN_LEN = MAX_TEXT_LEN
 
-def print_occurrences(output):
-    print(' '.join(map(str, output)))
+
+def poly_hash(s, p, x):
+    ans = 0
+    for c in reversed(s):
+        ans = (ans * x + ord(c)) % p
+    return ans
+
+
+def precompute_hashes(text, pattern, p, x):
+    hashes = [0] * (len(text) - len(pattern) + 1)
+    substr = text[len(text)-len(pattern):len(text)]
+    hashes[len(text)-len(pattern)] = poly_hash(substr, p, x)
+    y = 1
+    for i in range(1, len(pattern)+1):
+        y = (y * x) % p
+    for i in reversed(range(len(text)-len(pattern))):
+        a = (x * hashes[i+1]) % p
+        b = ord(text[i]) % p
+        c = (y * ord(text[i+len(pattern)])) % p
+        hashes[i] = (a + b - c) % p
+    return hashes
+
+
+def rabin_karp(pattern, text):
+    p = 10000007
+    x = random.randint(1, p - 1)
+    res = []
+    pattern_hash = poly_hash(pattern, p, x)
+    h = precompute_hashes(text, pattern, p, x)
+    for i in range(len(text)-len(pattern)+1):
+        if pattern_hash != h[i]:
+            continue
+
+        if pattern == text[i:i+len(pattern)]:
+            res.append(i)
+    return res
+
 
 def get_occurrences(pattern, text):
-    positions = []
-    p_len = len(pattern)
-    t_len = len(text)
-
-    # Calculate the hash of the pattern
-    p_hash = 0
-    for i in range(p_len):
-        p_hash += ord(pattern[i]) * pow(10, p_len-i-1)
-
-    # Calculate the hash of the initial substring of length p_len in the text
-    t_hash = 0
-    for i in range(p_len):
-        t_hash += ord(text[i]) * pow(10, p_len-i-1)
-
-    for i in range(t_len - p_len + 1):
-        # Check if the hashes match
-        if p_hash == t_hash:
-            # Check if the substrings match
-            if pattern == text[i:i+p_len]:
-                positions.append(i)
-        
-        # Recalculate the hash for the next substring in the text
-        if i < t_len - p_len:
-            t_hash = (t_hash - ord(text[i]) * pow(10, p_len-1)) * 10 + ord(text[i+p_len])
-
-    return positions if positions else []
+    return [
+        i 
+        for i in range(len(text) - len(pattern) + 1) 
+        if text[i:i + len(pattern)] == pattern
+    ]
 
 if __name__ == '__main__':
-    pattern, text = read_input()
-    occurrences = get_occurrences(pattern, text)
-    print_occurrences(occurrences)
+    def read_input():
+        return (input().rstrip(), input().rstrip())
+
+
+    def print_occurrences(output):
+        print(' '.join(map(str, output)))
+
+    print_occurrences(rabin_karp(*read_input()))
 
