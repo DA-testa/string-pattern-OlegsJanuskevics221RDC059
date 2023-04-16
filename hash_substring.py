@@ -14,7 +14,7 @@ def read_input():
     # return both lines in one return
     
     # this is the sample return, notice the rstrip function
-    return (input().rstrip(), input().rstrip())
+    return pattern,text
 
 def print_occurrences(output):
     # this function should control output, it doesn't need any return
